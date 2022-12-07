@@ -1,41 +1,22 @@
 <template>
-    <h1>Registration Form</h1>
+    <h1>Login Form</h1>
     <form @submit.prevent="onSubmit">
-        <label>First Name:</label>
-        <input type="text" required v-model="firstname" />
-
-        <label>Last Name:</label>
-        <input type="text" required v-model="lastname" />
-
-        <label>Email:</label>
-        <input type="email" required v-model="email" />
-        <p style="{color: 'red'}">{{ errorMessage }}</p>
-
         <label>username:</label>
         <input type="text" required v-model="username" />
 
         <label for="password">Password:</label>
         <input type="password" required id="password" v-model="password" />
 
-        <label>Role:</label>
-        <select required placeholder="Please Select your Role" v-model="role">
-            <option value="User">User</option>
-            <option value="Admin">Admin</option>
-        </select>
         <button type="submit">Submit</button>
     </form>
-    <p>Already have an account? <a ref="/login">Login Here</a></p>
+    <p>Don't have an account? <router-link :to="{ name: 'signup' }">Sign up</router-link></p>
 </template>
 <script>
 export default {
     data() {
         return {
-            firstname: '',
-            lastname: '',
-            email: '',
             username: '',
             password: '',
-            role: '',
             errorMessage: ''
         }
     },

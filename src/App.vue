@@ -1,11 +1,8 @@
 <script setup>
-import Registration from './components/RegistrationForm.vue'
-
 </script>
 
 <template>
-  <Registration />
-
+  <router-view />
 </template>
 
 <style scoped>
