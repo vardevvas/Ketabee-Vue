@@ -1,7 +1,7 @@
 <template>
   <h1>Welcome To Ketabee</h1>
   <button @click="$router.push('login')">Login</button>
-  <button @click="$router.push('signup')">Sign Up</button>
+  <button @click="$router.push('registration')">Sign Up</button>
 </template>
 
 <style scoped>
@@ -20,7 +20,7 @@ button {
   text-decoration: none;
   font-size: 16px;
   display: inline-block;
-  width: 40%;
+  width: 20%;
   margin: 10px;
   padding: 10px 6px;
   box-sizing: border-box;

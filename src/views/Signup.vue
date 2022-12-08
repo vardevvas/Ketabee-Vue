@@ -9,7 +9,7 @@
 
         <label>Email:</label>
         <input type="email" required v-model="user.email" />
-        <p color="red">{{ errorMessage }}</p>
+        <!-- <p color="red">{{ errorMessage }}</p> -->
 
         <label>username:</label>
         <input type="text" required v-model="user.username" />
@@ -28,6 +28,7 @@
 </template>
 <script>
 import { ref } from 'vue'
+import axios from 'axios'
 
 export default {
     setup() {
@@ -38,9 +39,32 @@ export default {
             username: '',
             password: '',
             role: ''
-        })
+        });
+        async function postAxios(url, data) {
+            try {
+                const response = await axios.post(url, data);
+                return response.data;
+            } catch (error) {
+                throw "no connection";
+            }
+        }
+        async function onSubmit() {
+            try {
+                const response = await postAxios('http://localhost:8080/registration', this.user);
+                console.log(response);
+            } catch (error) {
+                console.log("connection not successful");
+            }
+        }
+        function validateEmail(email) {
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+                this.errorMessage = ''
+            } else {
+                this.errorMessage = 'Invalid Email'
+            }
+        }
 
-        return (user)
+        return { user, postAxios, onSubmit, validateEmail }
     },
 }
 </script>

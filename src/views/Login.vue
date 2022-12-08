@@ -13,25 +13,31 @@
 </template>
 <script>
 import { ref } from 'vue'
+import axios from 'axios';
+
 export default {
     setup() {
         const user = ref({
             username: '',
             password: '',
         });
-        function onSubmit(e, submit) {
-            submit.preventDefault()
-            console.log(e)
-        };
-        function validateEmail(email) {
-            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-                this.errorMessage = ''
-            } else {
-                this.errorMessage = 'Invalid Email'
+        async function postAxios(url, data) {
+            try {
+                const response = await axios.post(url, data);
+                return response.data;
+            } catch (error) {
+                throw "no connection";
             }
         }
-
-        return { user }
+        async function onSubmit() {
+            try {
+                const response = await postAxios('http://localhost:8080/login', this.user);
+                console.log(response);
+            } catch (error) {
+                console.log("connection not successful");
+            }
+        }
+        return { user, onSubmit, postAxios }
     },
 }
 </script>
