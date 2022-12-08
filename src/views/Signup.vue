@@ -2,23 +2,23 @@
     <h1>Registration Form</h1>
     <form @submit.prevent="onSubmit">
         <label>First Name:</label>
-        <input type="text" required v-model="firstname" />
+        <input type="text" required v-model="user.firstname" />
 
         <label>Last Name:</label>
-        <input type="text" required v-model="lastname" />
+        <input type="text" required v-model="user.lastname" />
 
         <label>Email:</label>
-        <input type="email" required v-model="email" />
-        <p style="{color: 'red'}">{{ errorMessage }}</p>
+        <input type="email" required v-model="user.email" />
+        <p color="red">{{ errorMessage }}</p>
 
         <label>username:</label>
-        <input type="text" required v-model="username" />
+        <input type="text" required v-model="user.username" />
 
         <label for="password">Password:</label>
-        <input type="password" required id="password" v-model="password" />
+        <input type="password" required id="password" v-model="user.password" />
 
         <label>Role:</label>
-        <select required placeholder="Please Select your Role" v-model="role">
+        <select required placeholder="Please Select your Role" v-model="user.role">
             <option value="User">User</option>
             <option value="Admin">Admin</option>
         </select>
@@ -27,29 +27,20 @@
     <p>Already have an account? <router-link :to="{ name: 'login' }">Login</router-link></p>
 </template>
 <script>
+import { ref } from 'vue'
+
 export default {
-    data() {
-        return {
+    setup() {
+        const user = ref({
             firstname: '',
             lastname: '',
             email: '',
             username: '',
             password: '',
-            role: '',
-            errorMessage: ''
-        }
-    },
-    methods: {
-        onSubmit(event) {
-            event.preventDefault()
-            console.log(event)
-        },
-        // validateEmail(email) {
-        // if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-        //     this.errorMessage = ''
-        // } else {
-        //     this.errorMessage = 'Invalid Email'
-        // }
+            role: ''
+        })
+
+        return (user)
     },
 }
 </script>

@@ -2,35 +2,36 @@
     <h1>Login Form</h1>
     <form @submit.prevent="onSubmit">
         <label>username:</label>
-        <input type="text" required v-model="username" />
+        <input type="text" required v-model="user.username" />
 
         <label for="password">Password:</label>
-        <input type="password" required id="password" v-model="password" />
+        <input type="password" required id="password" v-model="user.password" />
 
-        <button type="submit">Submit</button>
+        <button type="submit" @click="$router.push('home')">Submit</button>
     </form>
     <p>Don't have an account? <router-link :to="{ name: 'signup' }">Sign up</router-link></p>
 </template>
 <script>
+import { ref } from 'vue'
 export default {
-    data() {
-        return {
+    setup() {
+        const user = ref({
             username: '',
             password: '',
-            errorMessage: ''
+        });
+        function onSubmit(e, submit) {
+            submit.preventDefault()
+            console.log(e)
+        };
+        function validateEmail(email) {
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+                this.errorMessage = ''
+            } else {
+                this.errorMessage = 'Invalid Email'
+            }
         }
-    },
-    methods: {
-        onSubmit(event) {
-            event.preventDefault()
-            console.log(event)
-        },
-        // validateEmail(email) {
-        // if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-        //     this.errorMessage = ''
-        // } else {
-        //     this.errorMessage = 'Invalid Email'
-        // }
+
+        return { user }
     },
 }
 </script>
