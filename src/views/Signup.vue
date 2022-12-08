@@ -28,7 +28,7 @@
 </template>
 <script>
 import { ref } from 'vue'
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
     setup() {
@@ -45,7 +45,7 @@ export default {
                 const response = await axios.post(url, data);
                 return response.data;
             } catch (error) {
-                throw "no connection";
+                throw error;
             }
         }
         async function onSubmit() {
@@ -53,6 +53,7 @@ export default {
                 const response = await postAxios('http://localhost:8080/registration', this.user);
                 console.log(response);
             } catch (error) {
+                console.log(error);
                 console.log("connection not successful");
             }
         }
